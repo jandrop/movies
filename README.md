@@ -1,4 +1,4 @@
-# the_movie_db
+# Movies
 
 A new Flutter project.
 
