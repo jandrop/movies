@@ -9,16 +9,9 @@ class GetTopRatedMoviesInteractor {
   GetTopRatedMoviesInteractor(this._repository);
 
   Future<List<Movie>> run() async {
-    var response = await _repository.getTopRatedMovies(DataPolicy.REMOTE);
-    if (response.isNotEmpty) {
-      return response
-          .map((movie) => Movie(
-                title: movie.title,
-                image: movie.image,
-                overview: movie.overview,
-                backDrop: movie.backDrop,
-              ))
-          .toList();
+    var localResponse = await _repository.getTopRatedMovies(DataPolicy.REMOTE);
+    if (localResponse.isNotEmpty) {
+      return localResponse.map((movie) => movie.toMovie()).toList();
     } else {
       throw Exception("error");
     }
