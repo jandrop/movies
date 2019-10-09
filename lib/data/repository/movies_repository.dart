@@ -19,11 +19,13 @@ class MoviesRepositoryImp implements MoviesRepository {
     switch (dataPolicy) {
       case DataPolicy.LOCAL:
         return _getPopularMoviesFromLocal();
+        break;
       case DataPolicy.REMOTE:
         return _getPopularMoviesFromRemote();
-
+        break;
       default:
         throw ArgumentError("Invalid argument");
+        break;
     }
   }
 
@@ -32,10 +34,13 @@ class MoviesRepositoryImp implements MoviesRepository {
     switch (dataPolicy) {
       case DataPolicy.LOCAL:
         return _getUpcomingMoviesFromLocal();
+        break;
       case DataPolicy.REMOTE:
         return _getUpcomingMoviesFromRemote();
+        break;
       default:
         throw ArgumentError("Invalid argument");
+        break;
     }
   }
 
@@ -44,10 +49,13 @@ class MoviesRepositoryImp implements MoviesRepository {
     switch (dataPolicy) {
       case DataPolicy.LOCAL:
         return _getTopRatedMoviesFromLocal();
+        break;
       case DataPolicy.REMOTE:
         return _getTopRatedMoviesFromRemote();
+        break;
       default:
         throw ArgumentError("Invalid argument");
+        break;
     }
   }
 
