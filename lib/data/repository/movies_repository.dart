@@ -28,12 +28,12 @@ class MoviesRepositoryImp implements MoviesRepository {
   }
 
   @override
-  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy) async {
+  Future<List<MovieEntity>> getUpcomingMovies(DataPolicy dataPolicy) async {
     switch (dataPolicy) {
       case DataPolicy.LOCAL:
-        return _getNextMoviesFromLocal();
+        return _getUpcomingMoviesFromLocal();
       case DataPolicy.REMOTE:
-        return _getNextMoviesFromRemote();
+        return _getUpcomingMoviesFromRemote();
       default:
         throw ArgumentError("Invalid argument");
     }
@@ -43,9 +43,9 @@ class MoviesRepositoryImp implements MoviesRepository {
   Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy) async {
     switch (dataPolicy) {
       case DataPolicy.LOCAL:
-        return _getTopMoviesFromLocal();
+        return _getTopRatedMoviesFromLocal();
       case DataPolicy.REMOTE:
-        return _getTopMoviesFromRemote();
+        return _getTopRatedMoviesFromRemote();
       default:
         throw ArgumentError("Invalid argument");
     }
@@ -72,7 +72,7 @@ class MoviesRepositoryImp implements MoviesRepository {
     }
   }
 
-  Future<List<MovieEntity>> _getNextMoviesFromLocal() async {
+  Future<List<MovieEntity>> _getUpcomingMoviesFromLocal() async {
     var localResponse = await _localDataSource.getPopularMovies();
 
     if (localResponse.isNotEmpty) {
@@ -82,7 +82,7 @@ class MoviesRepositoryImp implements MoviesRepository {
     }
   }
 
-  Future<List<MovieEntity>> _getNextMoviesFromRemote() async {
+  Future<List<MovieEntity>> _getUpcomingMoviesFromRemote() async {
     var remoteResponse = await _remoteDataSource.getUpcomingMovies();
     saveMovies(remoteResponse, MoviesTable.UPCOMING);
 
@@ -93,7 +93,7 @@ class MoviesRepositoryImp implements MoviesRepository {
     }
   }
 
-  Future<List<MovieEntity>> _getTopMoviesFromLocal() async {
+  Future<List<MovieEntity>> _getTopRatedMoviesFromLocal() async {
     var localResponse = await _localDataSource.getTopRatedMovies();
 
     if (localResponse.isNotEmpty) {
@@ -103,7 +103,7 @@ class MoviesRepositoryImp implements MoviesRepository {
     }
   }
 
-  Future<List<MovieEntity>> _getTopMoviesFromRemote() async {
+  Future<List<MovieEntity>> _getTopRatedMoviesFromRemote() async {
     var remoteResponse = await _remoteDataSource.getTopRatedMovies();
     saveMovies(remoteResponse, MoviesTable.TOP_RATED);
 
@@ -133,7 +133,7 @@ List<MovieEntity> fromLocalEntityToMovieEntity(List<MovieLocalEntity> movieLocal
 abstract class MoviesRepository {
   Future<List<MovieEntity>> getPopularMovies(DataPolicy dataPolicy);
 
-  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy);
+  Future<List<MovieEntity>> getUpcomingMovies(DataPolicy dataPolicy);
 
   Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy);
 }

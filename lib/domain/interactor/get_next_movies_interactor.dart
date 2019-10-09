@@ -8,7 +8,7 @@ class GetUpcomingMoviesInteractor {
   GetUpcomingMoviesInteractor(this._repository);
 
   Future<List<Movie>> run() async {
-    var response = await _repository.getNextMovies(DataPolicy.REMOTE);
+    var response = await _repository.getUpcomingMovies(DataPolicy.REMOTE);
     if (response.isNotEmpty) {
       return response
           .map((movie) => Movie(
