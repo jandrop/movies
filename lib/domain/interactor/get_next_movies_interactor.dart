@@ -1,4 +1,5 @@
 import 'package:the_movie_db/data/repository/movies_repository.dart';
+import 'package:the_movie_db/domain/data_policy.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
 
 class GetNextMoviesInteractor {
@@ -7,7 +8,7 @@ class GetNextMoviesInteractor {
   GetNextMoviesInteractor(this._repository);
 
   Future<List<Movie>> run() async {
-    var response = await _repository.getNextMovies();
+    var response = await _repository.getNextMovies(DataPolicy.REMOTE);
     if (response.isNotEmpty) {
       return response
           .map((movie) => Movie(

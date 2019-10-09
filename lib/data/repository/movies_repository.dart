@@ -4,6 +4,7 @@ import 'package:the_movie_db/data/datasources/local/movies_local_datasource.dart
 import 'package:the_movie_db/data/datasources/remote/constans.dart';
 import 'package:the_movie_db/data/datasources/remote/model/movie_remote_entity.dart';
 import 'package:the_movie_db/data/datasources/remote/movies_remote_datasource.dart';
+import 'package:the_movie_db/domain/data_policy.dart';
 
 import 'model/movie_entity.dart';
 
@@ -14,36 +15,57 @@ class MoviesRepositoryImp implements MoviesRepository {
   MoviesRepositoryImp(this._localDataSource, this._remoteDataSource);
 
   @override
-  Future<List<MovieEntity>> getPopularMovies() async {
+  Future<List<MovieEntity>> getPopularMovies(DataPolicy dataPolicy) {
+    switch (dataPolicy) {
+      case DataPolicy.LOCAL:
+        return _getPopularMoviesFromLocal();
+      case DataPolicy.REMOTE:
+        return _getPopularMoviesFromRemote();
+
+      default:
+        throw ArgumentError("Something went wrong");
+    }
+  }
+
+  Future<List<MovieEntity>> _getPopularMoviesFromLocal() async {
+    var localResponse = await _localDataSource.getPopularMovies();
+
+    if (localResponse.isNotEmpty) {
+      return fromLocalEntityToMovieEntity(localResponse);
+    } else {
+      throw Exception("error: empty local response");
+    }
+  }
+
+  Future<List<MovieEntity>> _getPopularMoviesFromRemote() async {
     var remoteResponse = await _remoteDataSource.getPopularMovies();
-    var localResponse =  await _localDataSource.getPopularMovies();
 
     if (remoteResponse.isNotEmpty) {
-      return toMovieEntity(remoteResponse);
+      return fromRemoteEntityToMovieEntity(remoteResponse);
     } else {
-      throw Exception("Error");
+      throw Exception("error: empty remote response");
     }
   }
 
   @override
-  Future<List<MovieEntity>> getNextMovies() async {
+  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy) async {
     var remoteResponse = await _remoteDataSource.getNextMovies();
-    var localResponse =  await _localDataSource.getNextMovies();
+    var localResponse = await _localDataSource.getNextMovies();
 
     if (remoteResponse.isNotEmpty) {
-      return toMovieEntity(remoteResponse);
+      return fromRemoteEntityToMovieEntity(remoteResponse);
     } else {
       throw Exception("Error");
     }
   }
 
   @override
-  Future<List<MovieEntity>> getTopRatedMovies() async {
+  Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy) async {
     var remoteResponse = await _remoteDataSource.getTopRatedMovies();
-    var localResponse =  await _localDataSource.getTopRatedMovies();
+    var localResponse = await _localDataSource.getTopRatedMovies();
 
     if (remoteResponse.isNotEmpty) {
-      return toMovieEntity(remoteResponse);
+      return fromRemoteEntityToMovieEntity(remoteResponse);
     } else {
       throw Exception("Error");
     }
@@ -63,7 +85,7 @@ void saveMovies(List<MovieRemoteEntity> movies, MoviesTable table) {
   );
 }
 
-List<MovieEntity> toMovieEntity(List<MovieRemoteEntity> movieRemoteEntityList) {
+List<MovieEntity> fromRemoteEntityToMovieEntity(List<MovieRemoteEntity> movieRemoteEntityList) {
   return movieRemoteEntityList
       .map((movie) => MovieEntity(
             title: movie.title,
@@ -73,10 +95,20 @@ List<MovieEntity> toMovieEntity(List<MovieRemoteEntity> movieRemoteEntityList) {
       .toList();
 }
 
+List<MovieEntity> fromLocalEntityToMovieEntity(List<MovieLocalEntity> movieLocalEntityList) {
+  return movieLocalEntityList
+      .map((movie) => MovieEntity(
+            title: movie.title,
+            image: Constants.BASE_IMAGE_URL + movie.poster,
+            overview: movie.overview,
+          ))
+      .toList();
+}
+
 abstract class MoviesRepository {
-  Future<List<MovieEntity>> getPopularMovies();
+  Future<List<MovieEntity>> getPopularMovies(DataPolicy dataPolicy);
 
-  Future<List<MovieEntity>> getNextMovies();
+  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy);
 
-  Future<List<MovieEntity>> getTopRatedMovies();
+  Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy);
 }
