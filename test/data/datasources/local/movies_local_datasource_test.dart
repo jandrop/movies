@@ -5,27 +5,28 @@ import 'package:the_movie_db/data/datasources/local/movies_local_datasource.dart
 
 void main() {
   test('when insert one movie in db then the movie can be fetched', () {
-    MoviesLocalDataSource localDataSource = MoviesLocalDataSourceImp();
+    DatabaseHelper.db.init();
+
+    DatabaseHelper helper = DatabaseHelper.db;
+    MoviesLocalDataSource localDataSource = MoviesLocalDataSourceImp(helper);
 
     var sutPopularMovieList = _givenAMovieLocalEntityList("Popular movie");
     var sutUpcomingMovieList = _givenAMovieLocalEntityList("Upcoming movie");
     var sutTopRatedMovieList = _givenAMovieLocalEntityList("Top rated movie");
 
-    DatabaseHelper.db.init();
+    localDataSource.saveMovies(sutPopularMovieList, MoviesTable.POPULAR);
+    localDataSource.saveMovies(sutUpcomingMovieList, MoviesTable.UPCOMING);
+    localDataSource.saveMovies(sutTopRatedMovieList, MoviesTable.TOP_RATED);
 
-    DatabaseHelper.db.saveMovies(sutPopularMovieList, MoviesTable.POPULAR);
-    DatabaseHelper.db.saveMovies(sutUpcomingMovieList, MoviesTable.UPCOMING);
-    DatabaseHelper.db.saveMovies(sutTopRatedMovieList, MoviesTable.TOP_RATED);
-
-    DatabaseHelper.db.getMovies(MoviesTable.POPULAR).then((resp) {
+    localDataSource.getPopularMovies().then((resp) {
       expect(resp, sutPopularMovieList);
     });
 
-    DatabaseHelper.db.getMovies(MoviesTable.POPULAR).then((resp) {
+    localDataSource.getNextMovies().then((resp) {
       expect(resp, sutUpcomingMovieList);
     });
 
-    DatabaseHelper.db.getMovies(MoviesTable.POPULAR).then((resp) {
+    localDataSource.getTopRatedMovies().then((resp) {
       expect(resp, sutTopRatedMovieList);
     });
   });
