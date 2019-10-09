@@ -23,7 +23,31 @@ class MoviesRepositoryImp implements MoviesRepository {
         return _getPopularMoviesFromRemote();
 
       default:
-        throw ArgumentError("Something went wrong");
+        throw ArgumentError("Invalid argument");
+    }
+  }
+
+  @override
+  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy) async {
+    switch (dataPolicy) {
+      case DataPolicy.LOCAL:
+        return _getNextMoviesFromLocal();
+      case DataPolicy.REMOTE:
+        return _getNextMoviesFromRemote();
+      default:
+        throw ArgumentError("Invalid argument");
+    }
+  }
+
+  @override
+  Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy) async {
+    switch (dataPolicy) {
+      case DataPolicy.LOCAL:
+        return _getTopMoviesFromLocal();
+      case DataPolicy.REMOTE:
+        return _getTopMoviesFromRemote();
+      default:
+        throw ArgumentError("Invalid argument");
     }
   }
 
@@ -39,6 +63,7 @@ class MoviesRepositoryImp implements MoviesRepository {
 
   Future<List<MovieEntity>> _getPopularMoviesFromRemote() async {
     var remoteResponse = await _remoteDataSource.getPopularMovies();
+    saveMovies(remoteResponse, MoviesTable.POPULAR);
 
     if (remoteResponse.isNotEmpty) {
       return fromRemoteEntityToMovieEntity(remoteResponse);
@@ -47,62 +72,62 @@ class MoviesRepositoryImp implements MoviesRepository {
     }
   }
 
-  @override
-  Future<List<MovieEntity>> getNextMovies(DataPolicy dataPolicy) async {
-    var remoteResponse = await _remoteDataSource.getNextMovies();
-    var localResponse = await _localDataSource.getNextMovies();
+  Future<List<MovieEntity>> _getNextMoviesFromLocal() async {
+    var localResponse = await _localDataSource.getPopularMovies();
 
-    if (remoteResponse.isNotEmpty) {
-      return fromRemoteEntityToMovieEntity(remoteResponse);
+    if (localResponse.isNotEmpty) {
+      return fromLocalEntityToMovieEntity(localResponse);
     } else {
-      throw Exception("Error");
+      throw Exception("error: empty local response");
     }
   }
 
-  @override
-  Future<List<MovieEntity>> getTopRatedMovies(DataPolicy dataPolicy) async {
-    var remoteResponse = await _remoteDataSource.getTopRatedMovies();
-    var localResponse = await _localDataSource.getTopRatedMovies();
+  Future<List<MovieEntity>> _getNextMoviesFromRemote() async {
+    var remoteResponse = await _remoteDataSource.getNextMovies();
+    saveMovies(remoteResponse, MoviesTable.UPCOMING);
 
     if (remoteResponse.isNotEmpty) {
       return fromRemoteEntityToMovieEntity(remoteResponse);
     } else {
-      throw Exception("Error");
+      throw Exception("error: empty remote response");
+    }
+  }
+
+  Future<List<MovieEntity>> _getTopMoviesFromLocal() async {
+    var localResponse = await _localDataSource.getTopRatedMovies();
+
+    if (localResponse.isNotEmpty) {
+      return fromLocalEntityToMovieEntity(localResponse);
+    } else {
+      throw Exception("error: empty local response");
+    }
+  }
+
+  Future<List<MovieEntity>> _getTopMoviesFromRemote() async {
+    var remoteResponse = await _remoteDataSource.getTopRatedMovies();
+    saveMovies(remoteResponse, MoviesTable.TOP_RATED);
+
+    if (remoteResponse.isNotEmpty) {
+      return fromRemoteEntityToMovieEntity(remoteResponse);
+    } else {
+      throw Exception("error: empty remote response");
     }
   }
 }
 
 void saveMovies(List<MovieRemoteEntity> movies, MoviesTable table) {
   DatabaseHelper.db.saveMovies(
-    movies
-        .map((movie) => MovieLocalEntity(
-              title: movie.title,
-              poster: Constants.BASE_IMAGE_URL + movie.poster,
-              overview: movie.overview,
-            ))
-        .toList(),
+    movies.map((movie) => movie.toMovieLocalEntity()).toList(),
     table,
   );
 }
 
 List<MovieEntity> fromRemoteEntityToMovieEntity(List<MovieRemoteEntity> movieRemoteEntityList) {
-  return movieRemoteEntityList
-      .map((movie) => MovieEntity(
-            title: movie.title,
-            image: Constants.BASE_IMAGE_URL + movie.poster,
-            overview: movie.overview,
-          ))
-      .toList();
+  return movieRemoteEntityList.map((movie) => movie.toMovieEntity()).toList();
 }
 
 List<MovieEntity> fromLocalEntityToMovieEntity(List<MovieLocalEntity> movieLocalEntityList) {
-  return movieLocalEntityList
-      .map((movie) => MovieEntity(
-            title: movie.title,
-            image: Constants.BASE_IMAGE_URL + movie.poster,
-            overview: movie.overview,
-          ))
-      .toList();
+  return movieLocalEntityList.map((movie) => movie.toMovieEntity()).toList();
 }
 
 abstract class MoviesRepository {
