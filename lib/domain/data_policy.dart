@@ -1,0 +1,1 @@
+enum DataPolicy { LOCAL, REMOTE }
