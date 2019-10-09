@@ -1,6 +1,6 @@
 ### Movies
 
-This is a working progress example using flutter with clean architecture.
+This is a work in progress example using flutter with clean architecture.
 
 don't forget create your apikey in https://www.themoviedb.org
 
