@@ -73,7 +73,7 @@ _getTableName(MoviesTable table) {
       return "popular_movies";
       break;
     case MoviesTable.UPCOMING:
-      return "upcomin_movies";
+      return "upcoming_movies";
       break;
     case MoviesTable.TOP_RATED:
       return "top_rated_movies";
