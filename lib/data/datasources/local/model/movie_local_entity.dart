@@ -1,7 +1,7 @@
-import 'package:the_movie_db/data/datasources/remote/constans.dart';
 import 'package:the_movie_db/data/repository/model/movie_entity.dart';
 
 class MovieLocalEntity {
+  int id;
   String title;
   String overview;
   String poster;
@@ -9,10 +9,11 @@ class MovieLocalEntity {
   String releaseDate;
   String backDrop;
 
-  MovieLocalEntity({this.title, this.poster, this.overview, this.releaseDate, this.voteAverage, this.backDrop});
+  MovieLocalEntity({this.id, this.title, this.poster, this.overview, this.releaseDate, this.voteAverage, this.backDrop});
 
   Map<String, dynamic> toMap() {
     return {
+      'id' : id,
       'title': title,
       'poster': poster,
       'overview': overview,
@@ -24,8 +25,9 @@ class MovieLocalEntity {
 
   MovieEntity toMovieEntity() {
     return MovieEntity(
+      id : this.id,
       title: this.title,
-      image: Constants.BASE_IMAGE_URL + this.poster,
+      image: this.poster,
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,

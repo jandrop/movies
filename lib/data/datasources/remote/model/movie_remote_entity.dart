@@ -3,6 +3,7 @@ import 'package:the_movie_db/data/repository/model/movie_entity.dart';
 import '../constans.dart';
 
 class MovieRemoteEntity {
+  int id;
   String title;
   String overview;
   String poster;
@@ -15,7 +16,8 @@ class MovieRemoteEntity {
   }
 
   MovieRemoteEntity.deserialize(Map json)
-      : title = json['title'],
+      : id = json['id'].toInt(),
+        title = json['title'],
         overview = json['overview'],
         poster = json['poster_path'] ?? "",
         voteAverage = json['vote_average'].toDouble(),
@@ -24,6 +26,7 @@ class MovieRemoteEntity {
 
   MovieEntity toMovieEntity() {
     return MovieEntity(
+      id : this.id,
       title: this.title,
       image: Constants.BASE_IMAGE_URL + this.poster,
       overview: this.overview,
@@ -35,6 +38,7 @@ class MovieRemoteEntity {
 
   MovieLocalEntity toMovieLocalEntity() {
     return MovieLocalEntity(
+      id: this.id,
       title: this.title,
       poster: Constants.BASE_IMAGE_URL + this.poster,
       overview: this.overview,
