@@ -5,7 +5,7 @@ import 'package:the_movie_db/domain/model/Movie.dart';
 
 class HomePresenterImp implements HomePresenter {
   GetPopularMoviesInteractor _popularMoviesInteractor;
-  GetNextMoviesInteractor _nextMoviesInteractor;
+  GetUpcomingMoviesInteractor _upcomingMoviesInteractor;
   GetTopRatedMoviesInteractor _topRatedMoviesInteractor;
   HomeView _view;
   List<Movie> _movies = [];
@@ -13,7 +13,7 @@ class HomePresenterImp implements HomePresenter {
   HomePresenterImp(
     this._view,
     this._popularMoviesInteractor,
-    this._nextMoviesInteractor,
+    this._upcomingMoviesInteractor,
     this._topRatedMoviesInteractor,
   );
 
@@ -31,7 +31,7 @@ class HomePresenterImp implements HomePresenter {
   onNextSectionButtonClicked() async {
     _view.showLoader();
 
-    _movies = await _nextMoviesInteractor.run();
+    _movies = await _upcomingMoviesInteractor.run();
 
     _view.hideLoader();
     _view.showMovies(_movies);

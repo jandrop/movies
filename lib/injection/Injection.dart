@@ -29,7 +29,7 @@ class Injection {
   }
 
   static providesGetNextMoviesInteractor() {
-    return GetNextMoviesInteractor(
+    return GetUpcomingMoviesInteractor(
       _providesMoviesRepository(),
     );
   }

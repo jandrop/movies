@@ -83,7 +83,7 @@ class MoviesRepositoryImp implements MoviesRepository {
   }
 
   Future<List<MovieEntity>> _getNextMoviesFromRemote() async {
-    var remoteResponse = await _remoteDataSource.getNextMovies();
+    var remoteResponse = await _remoteDataSource.getUpcomingMovies();
     saveMovies(remoteResponse, MoviesTable.UPCOMING);
 
     if (remoteResponse.isNotEmpty) {
