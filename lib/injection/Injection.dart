@@ -1,3 +1,4 @@
+import 'package:the_movie_db/data/datasources/local/database_helper.dart';
 import 'package:the_movie_db/data/datasources/local/movies_local_datasource.dart';
 import 'package:the_movie_db/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:the_movie_db/data/repository/movies_repository.dart';
@@ -7,7 +8,7 @@ import 'package:the_movie_db/domain/interactor/get_top_rated_movies_interactor.d
 
 class Injection {
   static _providesMoviesLocalDataSource() {
-    return MoviesLocalDataSourceImp();
+    return MoviesLocalDataSourceImp(DatabaseHelper.db);
   }
 
   static _providesMoviesRemoteDataSource() {
