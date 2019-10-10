@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
 
@@ -54,18 +55,28 @@ class DetailScreen extends StatelessWidget {
                       ),
                       Text(
                         movie.voteAverage.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Ubuntu',
-                          fontSize: 24.0,
-                        ),
+                        style: Theme.of(context).textTheme.body2.copyWith(
+                              color: Colors.white,
+                              fontFamily: 'Ubuntu',
+                            ),
                       ),
                       SizedBox(width: 4.0),
                       Icon(
                         Icons.star,
                         color: Colors.white,
+                        size: 16.0,
                       )
                     ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    movie.overview,
+                    style: Theme.of(context).textTheme.body1.copyWith(
+                          color: Colors.white,
+                          fontFamily: "Ubuntu",
+                        ),
                   ),
                 )
               ],
