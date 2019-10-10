@@ -26,13 +26,13 @@ class MovieRemoteEntity {
 
   MovieEntity toMovieEntity() {
     return MovieEntity(
-      id : this.id,
+      id: this.id,
       title: this.title,
       image: Constants.BASE_IMAGE_URL + this.poster,
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: this.backDrop,
+      backDrop: Constants.BASE_IMAGE_URL + this.backDrop,
     );
   }
 
@@ -44,7 +44,7 @@ class MovieRemoteEntity {
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: this.backDrop,
+      backDrop: Constants.BASE_IMAGE_URL + this.backDrop,
     );
   }
 }
