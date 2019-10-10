@@ -12,13 +12,7 @@ class GetPopularMoviesInteractor {
     var response = await _repository.getPopularMovies(DataPolicy.REMOTE);
     if (response.isNotEmpty) {
       return response
-          .map((movie) => Movie(
-                title: movie.title,
-                image: movie.image,
-                overview: movie.overview,
-                backDrop: movie.backDrop,
-              ))
-          .toList();
+          .map((movie) => movie.toMovie()).toList();
     } else {
       throw Exception("error");
     }

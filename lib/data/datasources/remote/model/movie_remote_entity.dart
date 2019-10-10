@@ -26,13 +26,13 @@ class MovieRemoteEntity {
 
   MovieEntity toMovieEntity() {
     return MovieEntity(
-      id : this.id,
+      id: this.id,
       title: this.title,
-      image: Constants.BASE_IMAGE_URL + this.poster,
+      image: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_SMALL + this.poster,
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: this.backDrop,
+      backDrop: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop,
     );
   }
 
@@ -40,11 +40,11 @@ class MovieRemoteEntity {
     return MovieLocalEntity(
       id: this.id,
       title: this.title,
-      poster: Constants.BASE_IMAGE_URL + this.poster,
+      poster: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_SMALL + this.poster,
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: this.backDrop,
+      backDrop: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop,
     );
   }
 }

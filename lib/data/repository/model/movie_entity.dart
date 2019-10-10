@@ -13,7 +13,7 @@ class MovieEntity {
 
   Movie toMovie() {
     return Movie(
-      id : this.id,
+      id: this.id,
       title: this.title,
       image: this.image,
       overview: this.overview,
