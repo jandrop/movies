@@ -91,16 +91,7 @@ class _HomeState extends State<Home> implements HomeView {
   _getMovieList(List<Movie> movies) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailScreen(movie: movies[index]),
-                ));
-          },
-          child: new MovieListItemWidget(movies[index]),
-        );
+        return new MovieListItemWidget(movies[index]);
       },
       itemCount: movies.length,
     );

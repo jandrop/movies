@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
+import 'package:the_movie_db/view/detail/detail.dart';
 
 class MovieListItemWidget extends StatelessWidget {
   final Movie movie;
@@ -14,16 +15,25 @@ class MovieListItemWidget extends StatelessWidget {
       height: 160.0,
       child: Card(
           clipBehavior: Clip.antiAlias,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              MovieImageWidget(movie.image),
-              MovieContentWidget(
-                title: movie.title,
-                overview: movie.overview,
-              ),
-            ],
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(movie: movie),
+                  ));
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                MovieImageWidget(movie.image),
+                MovieContentWidget(
+                  title: movie.title,
+                  overview: movie.overview,
+                ),
+              ],
+            ),
           )),
     );
   }
