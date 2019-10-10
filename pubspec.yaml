@@ -53,6 +53,22 @@ flutter:
 
   assets:
     - assets/images/
+  fonts:
+    - family: Ubuntu-Bold
+      fonts:
+        - asset: fonts/Ubuntu-B.ttf
+    - family: Ubuntu-Condensed
+      fonts:
+        - asset: fonts/Ubuntu-C.ttf
+    - family: Ubuntu-Light
+      fonts:
+        - asset: fonts/Ubuntu-L.ttf
+    - family: Ubuntu-Medium
+      fonts:
+        - asset: fonts/Ubuntu-M.ttf
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/Ubuntu-R.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
