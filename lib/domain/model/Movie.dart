@@ -1,4 +1,5 @@
 class Movie {
+  int id;
   String title;
   String image;
   String overview;
@@ -6,5 +7,5 @@ class Movie {
   String releaseDate;
   String backDrop;
 
-  Movie({this.title, this.image, this.overview, this.voteAverage, this.releaseDate, this.backDrop});
+  Movie({this.id, this.title, this.image, this.overview, this.voteAverage, this.releaseDate, this.backDrop});
 }

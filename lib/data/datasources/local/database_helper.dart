@@ -31,11 +31,11 @@ class DatabaseHelper {
 
   _onCreateTables(Database db, int version) async {
     await db.execute(
-        """CREATE TABLE popular_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL)""");
+        """CREATE TABLE popular_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL, backdrop TEXT)""");
     await db.execute(
-        """CREATE TABLE upcoming_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL)""");
+        """CREATE TABLE upcoming_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL, backdrop TEXT)""");
     await db.execute(
-        """CREATE TABLE top_rated_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL)""");
+        """CREATE TABLE top_rated_movies (id INTEGER PRIMARY KEY, title TEXT, poster TEXT, overview TEXT, release_date TEXT, vote_average REAL, backdrop TEXT)""");
   }
 
   saveMovies(List<MovieLocalEntity> movies, MoviesTable table) async {
@@ -55,6 +55,7 @@ class DatabaseHelper {
 
     return List.generate(maps.length, (i) {
       return MovieLocalEntity(
+        id: maps[i]['id'],
         title: maps[i]['title'],
         poster: maps[i]['poster'],
         overview: maps[i]['overview'],
@@ -73,7 +74,7 @@ _getTableName(MoviesTable table) {
       return "popular_movies";
       break;
     case MoviesTable.UPCOMING:
-      return "upcomin_movies";
+      return "upcoming_movies";
       break;
     case MoviesTable.TOP_RATED:
       return "top_rated_movies";

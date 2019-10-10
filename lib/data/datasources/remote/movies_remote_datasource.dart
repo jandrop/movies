@@ -5,7 +5,7 @@ import 'model/movie_remote_entity.dart';
 
 class MoviesRemoteDataSourceImp implements MoviesRemoteDataSource {
   final String popularMovies = "3/movie/popular";
-  final String nextMovies = "3/movie/upcoming";
+  final String upcomingMovies = "3/movie/upcoming";
   final String topRatedMovies = "3/movie/top_rated";
   final Map<String, String> queryParams = {
     'api_key': Secrets.API_KEY,
@@ -20,8 +20,8 @@ class MoviesRemoteDataSourceImp implements MoviesRemoteDataSource {
   }
 
   @override
-  Future<List<MovieRemoteEntity>> getNextMovies() {
-    var uri = Uri.https(Constants.BASE_URL, nextMovies, queryParams);
+  Future<List<MovieRemoteEntity>> getUpcomingMovies() {
+    var uri = Uri.https(Constants.BASE_URL, upcomingMovies, queryParams);
     return _getMovieFromUri(uri);
   }
 
@@ -41,7 +41,7 @@ class MoviesRemoteDataSourceImp implements MoviesRemoteDataSource {
 abstract class MoviesRemoteDataSource {
   Future<List<MovieRemoteEntity>> getPopularMovies();
 
-  Future<List<MovieRemoteEntity>> getNextMovies();
+  Future<List<MovieRemoteEntity>> getUpcomingMovies();
 
   Future<List<MovieRemoteEntity>> getTopRatedMovies();
 }

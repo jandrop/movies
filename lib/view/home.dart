@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/data/datasources/local/database_helper.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
 import 'package:the_movie_db/injection/Injection.dart';
 import 'package:the_movie_db/presenter/HomePresenter.dart';
+import 'package:the_movie_db/view/detail/detail.dart';
 
 import 'movie_list_item_widget.dart';
 
@@ -91,7 +91,16 @@ class _HomeState extends State<Home> implements HomeView {
   _getMovieList(List<Movie> movies) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return new MovieListItemWidget(movies[index]);
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(movie: movies[index]),
+                ));
+          },
+          child: new MovieListItemWidget(movies[index]),
+        );
       },
       itemCount: movies.length,
     );
