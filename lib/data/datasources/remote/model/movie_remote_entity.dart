@@ -33,7 +33,7 @@ class MovieRemoteEntity {
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop,
+      backDrop: backDrop != null ? Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop : null,
     );
   }
 
@@ -45,7 +45,7 @@ class MovieRemoteEntity {
       overview: this.overview,
       voteAverage: this.voteAverage,
       releaseDate: this.releaseDate,
-      backDrop: Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop,
+      backDrop: backDrop != null ? Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + this.backDrop : null,
     );
   }
 }
