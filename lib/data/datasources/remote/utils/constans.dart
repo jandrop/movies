@@ -6,4 +6,5 @@ class Constants {
   static const String IMAGE_SIZE_MEDIUM = "/w780";
   static const String IMAGE_SIZE_BIG = "/w1280";
   static const String IMAGE_SIZE_ORIGINAL = "/original";
+  static const String PLACE_HOLDER_IMAGE = "https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png";
 }
