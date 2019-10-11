@@ -1,5 +1,5 @@
-import 'package:the_movie_db/data/datasources/remote/secrets.dart';
-import 'package:the_movie_db/data/datasources/remote/constans.dart';
+import 'package:the_movie_db/data/datasources/remote/utils/secrets.dart';
+import 'package:the_movie_db/data/datasources/remote/utils/constans.dart';
 import 'utils/http_handler.dart';
 import 'model/movie_remote_entity.dart';
 
@@ -32,9 +32,9 @@ class MoviesRemoteDataSourceImp implements MoviesRemoteDataSource {
   }
 
   Future<List<MovieRemoteEntity>> _getMovieFromUri(Uri uri) {
-    return HttpHandler()
-        .getJson(uri)
-        .then(((data) => data['results'].map<MovieRemoteEntity>((item) => MovieRemoteEntity(item)).toList()));
+    return HttpHandler().getJson(uri).then(
+          ((data) => data['results'].map<MovieRemoteEntity>((item) => MovieRemoteEntity(item)).toList()),
+        );
   }
 }
 
