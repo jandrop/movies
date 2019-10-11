@@ -44,7 +44,7 @@ class CastRemoteEntity {
         character: character,
         name: name,
         profilePath: profilePath != null
-            ? Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_MEDIUM + profilePath
+            ? Constants.BASE_IMAGE_URL + Constants.IMAGE_SIZE_SMALL + profilePath
             : Constants.PLACE_HOLDER_IMAGE);
   }
 }
