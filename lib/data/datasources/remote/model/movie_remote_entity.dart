@@ -1,6 +1,7 @@
 import 'package:the_movie_db/data/datasources/local/model/movie_local_entity.dart';
 import 'package:the_movie_db/data/repository/model/movie_entity.dart';
-import '../constans.dart';
+
+import '../utils/constans.dart';
 
 class MovieRemoteEntity {
   int id;

@@ -1,24 +1,53 @@
 import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
+import 'package:the_movie_db/domain/model/credits/cast.dart';
+import 'package:the_movie_db/injection/Injection.dart';
+import 'package:the_movie_db/presenter/DetailPresenter.dart';
+import 'package:the_movie_db/view/detail/widgets/border_circle_avatar.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
+  final Movie _movie;
+
+  DetailScreen(this._movie);
+
+  @override
+  State createState() {
+    return _DetailScreenState(_movie);
+  }
+}
+
+class _DetailScreenState extends State<DetailScreen> implements DetailView {
   static const String routeName = '/detail';
-  final Movie movie;
+  List<Cast> _cast = [];
+  final Movie _movie;
+  DetailPresenter _presenter;
 
-  DetailScreen({@required this.movie});
+  _DetailScreenState(this._movie) {
+    _presenter = DetailPresenterImp(
+      this,
+      Injection.providesGetCreditsInteractor(),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _presenter.initState(_movie.id);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(movie.title)),
+      appBar: AppBar(title: Text(_movie.title)),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           CachedNetworkImage(
-            imageUrl: movie.image,
+            imageUrl: _movie.image,
             fit: BoxFit.cover,
           ),
           BackdropFilter(
@@ -32,23 +61,31 @@ class DetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 CachedNetworkImage(
-                  imageUrl: movie.backDrop,
+                  imageUrl: _movie.backDrop,
                   fit: BoxFit.cover,
                 ),
-                getTitleAndRate(context, movie),
+                getTitleAndRate(context, _movie),
                 Container(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
-                    movie.overview,
-                    style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white, fontFamily: "Ubuntu"),
+                    _movie.overview,
+                    style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white, fontFamily: "Ubuntu-Light"),
                   ),
-                )
+                ),
+                _getCastList(_cast),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  showCast(List<Cast> cast) {
+    setState(() {
+      _cast = cast;
+    });
   }
 }
 
@@ -82,5 +119,23 @@ Widget getTitleAndRate(BuildContext context, Movie movie) {
         )
       ],
     ),
+  );
+}
+
+_getCastList(List<Cast> cast) {
+  return Column(
+    children: <Widget>[
+      SizedBox.fromSize(
+        size: const Size.fromHeight(180.0),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.all(16.0),
+          itemBuilder: (context, index) {
+            return BorderCircleAvatar(cast[index]);
+          },
+          itemCount: cast.length,
+        ),
+      ),
+    ],
   );
 }

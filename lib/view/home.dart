@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/model/Movie.dart';
 import 'package:the_movie_db/injection/Injection.dart';
 import 'package:the_movie_db/presenter/HomePresenter.dart';
-import 'package:the_movie_db/view/detail/detail.dart';
 
 import 'movie_list_item_widget.dart';
 

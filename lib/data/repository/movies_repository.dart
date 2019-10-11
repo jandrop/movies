@@ -1,7 +1,6 @@
 import 'package:the_movie_db/data/datasources/local/database_helper.dart';
 import 'package:the_movie_db/data/datasources/local/model/movie_local_entity.dart';
 import 'package:the_movie_db/data/datasources/local/movies_local_datasource.dart';
-import 'package:the_movie_db/data/datasources/remote/constans.dart';
 import 'package:the_movie_db/data/datasources/remote/model/movie_remote_entity.dart';
 import 'package:the_movie_db/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:the_movie_db/domain/data_policy.dart';

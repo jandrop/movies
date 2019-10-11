@@ -20,7 +20,7 @@ class MovieListItemWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailScreen(movie: movie),
+                    builder: (context) => DetailScreen(movie),
                   ));
             },
             child: Row(
