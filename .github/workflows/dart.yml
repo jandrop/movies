@@ -1,18 +1,23 @@
-name: Dart CI
-
-on: [push]
-
+on: push
+name: build and test app
 jobs:
   build:
-
+    name: install dependencies
     runs-on: ubuntu-latest
-    
-    container:
-      image:  google/dart:latest
-    
     steps:
     - uses: actions/checkout@v1
-    - name: Install dependencies
-      run: flutter pub get
-    - name: Run tests
-      run: pub run test
+
+    - name: install dependencies
+      uses: steebchen/flutter@v1.0.0
+      with:
+        args: pub get
+
+    - name: run tests
+      uses: steebchen/flutter@v1.0.0
+      with:
+        args: test
+
+    - name: build apk
+      uses: steebchen/flutter@v1.0.0
+      with:
+        args: build apk --release
