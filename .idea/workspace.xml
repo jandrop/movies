@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30509775-a97d-48ad-8a7d-c95ae34b7446" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/data/datasources/remote/utils/secrets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/datasources/remote/utils/secrets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/datasources/remote/utils/secrets.dart" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -117,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="382">
+              <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -150,7 +150,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/data/repository/movie_entity.dart" />
         <option value="$PROJECT_DIR$/lib/domain/interactor/get_movies_interactor.dart" />
         <option value="$PROJECT_DIR$/lib/data/datasources/local/movie_local_entity.dart" />
         <option value="$PROJECT_DIR$/lib/data/datasources/local/db_provider.dart" />
@@ -201,6 +200,7 @@
         <option value="$PROJECT_DIR$/lib/view/detail/detail.dart" />
         <option value="$PROJECT_DIR$/lib/data/datasources/remote/utils/secrets.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -425,7 +425,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="-1057" width="1585" height="1057" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26377186" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26377186" />
       <window_info id="Structure" order="1" side_tool="true" />
       <window_info id="Captures" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -440,7 +440,7 @@
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946752" weight="0.43524417" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.3284169" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32940018" />
-      <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49946752" weight="0.47239915" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="6" sideWeight="0.49946752" visible="true" weight="0.47239915" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32908705" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" sideWeight="0.5005325" side_tool="true" weight="0.43524417" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.26008493" />
@@ -899,8 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        <state relative-caret-position="382">
+          <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
         </state>
       </provider>
     </entry>
